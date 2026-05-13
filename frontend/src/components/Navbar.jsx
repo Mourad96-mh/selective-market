@@ -228,7 +228,7 @@ export default function Navbar() {
               </svg>
             </button>
           </form>
-          {NAV_LINKS.map(({ label, to, children, promo }) => (
+          {NAV_LINKS.map(({ label, to, end, children, promo }) => (
             <div key={label}>
               {children ? (
                 <>
@@ -262,6 +262,7 @@ export default function Navbar() {
               ) : (
                 <NavLink
                   to={to}
+                  end={end}
                   className={({ isActive }) =>
                     `navbar-mobile-link${isActive ? ' active' : ''}${promo ? ' navbar-mobile-link-promo' : ''}`
                   }

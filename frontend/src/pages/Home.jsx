@@ -34,11 +34,11 @@ const FAQ_ITEMS = [
 /* Curated Unsplash images for categories without uploads */
 const CATEGORY_IMGS = [
   'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1556228578-626df0b29e95?w=500&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1701992678972-d5a053ad0fb0?w=500&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=500&auto=format&fit=crop&q=80',
   'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1607602278658-a14f5fda8b3b?w=500&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1587467512961-f90f84e2e5a7?w=500&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1592945403407-9caf930b7bc2?w=500&auto=format&fit=crop&q=80',
 ]
 
 const HERO_VISUAL = 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=700&auto=format&fit=crop&q=80'
@@ -176,7 +176,7 @@ export default function Home() {
           {categories.length > 0 ? (
             <div className="categories-grid">
               {categories.slice(0, 6).map((cat, i) => (
-                <Link key={cat._id} to={`/produits?category=${cat._id}`} className="category-card">
+                <Link key={cat._id} to={`/produits?category=${cat.slug || cat._id}`} className="category-card">
                   <img
                     src={cat.image || CATEGORY_IMGS[i % CATEGORY_IMGS.length]}
                     alt={cat.name}
