@@ -1,0 +1,291 @@
+import { useState } from 'react'
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
+import { openCart } from './CartDrawer'
+
+const NAV_LINKS = [
+  { label: 'Accueil', to: '/', end: true },
+  {
+    label: 'Parfum',
+    to: '/produits?category=parfum',
+    categorySlug: 'parfum',
+    children: [
+      { label: 'Parfum Femme',            to: '/produits?category=parfum&gender=femme' },
+      { label: 'Parfum Homme',            to: '/produits?category=parfum&gender=homme' },
+      { label: 'Parfum Mixte',            to: '/produits?category=parfum&gender=unisexe' },
+      { label: 'Coffret Femme',           to: '/produits?category=parfum&gender=femme' },
+      { label: 'Coffret Homme',           to: '/produits?category=parfum&gender=homme' },
+      { label: 'Échantillons de Parfums', to: '/produits?category=parfum' },
+      { label: "Parfums d'intérieur",     to: '/produits?category=parfum' },
+    ],
+  },
+  {
+    label: 'Maquillage',
+    to: '/produits?category=maquillage',
+    categorySlug: 'maquillage',
+    children: [
+      { label: 'Yeux',                to: '/produits?category=maquillage' },
+      { label: 'Teint',               to: '/produits?category=maquillage' },
+      { label: 'Lèvres',              to: '/produits?category=maquillage' },
+      { label: 'Ongles',              to: '/produits?category=maquillage' },
+      { label: 'Palettes et coffrets', to: '/produits?category=maquillage' },
+    ],
+  },
+  {
+    label: 'Soin Visage',
+    to: '/produits?category=soin-visage',
+    categorySlug: 'soin-visage',
+    children: [
+      { label: 'Nettoyant et Démaquillant', to: '/produits?category=soin-visage' },
+      { label: 'Hydratant & Nourrissant',   to: '/produits?category=soin-visage' },
+      { label: 'Anti-Rides et Anti-Âge',    to: '/produits?category=soin-visage' },
+      { label: 'Masque et Gommage',          to: '/produits?category=soin-visage' },
+      { label: 'BB Crème et CC Crème',       to: '/produits?category=soin-visage' },
+      { label: 'Soins Spécifiques',          to: '/produits?category=soin-visage' },
+    ],
+  },
+  {
+    label: 'Corps et Bain',
+    to: '/produits?category=corps-et-bain',
+    categorySlug: 'corps-et-bain',
+    children: [
+      { label: 'Déodorant',                to: '/produits?category=corps-et-bain' },
+      { label: 'Hydratant et Nourrissant', to: '/produits?category=corps-et-bain' },
+      { label: 'Minceur et Fermeté',       to: '/produits?category=corps-et-bain' },
+      { label: 'Mains et Pieds',           to: '/produits?category=corps-et-bain' },
+      { label: 'Hygiène et Bain',          to: '/produits?category=corps-et-bain' },
+    ],
+  },
+  {
+    label: 'Homme',
+    to: '/produits?category=homme',
+    categorySlug: 'homme',
+    children: [
+      { label: 'Parfum',    to: '/produits?category=homme' },
+      { label: 'Déodorant', to: '/produits?category=homme' },
+      { label: 'Coffret',   to: '/produits?category=homme' },
+      { label: 'Rasage',    to: '/produits?category=homme' },
+    ],
+  },
+  {
+    label: 'Cheveux',
+    to: '/produits?category=cheveux',
+    categorySlug: 'cheveux',
+    children: [
+      { label: 'Shampooing',          to: '/produits?category=cheveux' },
+      { label: 'Après-shampooing',    to: '/produits?category=cheveux' },
+      { label: 'Masque',              to: '/produits?category=cheveux' },
+      { label: 'Soin cheveux',        to: '/produits?category=cheveux' },
+      { label: 'Coiffant & Fixant',   to: '/produits?category=cheveux' },
+      { label: 'Accessoires cheveux', to: '/produits?category=cheveux' },
+    ],
+  },
+  { label: 'Promotions',  to: '/produits?featured=true', promo: true },
+]
+
+export default function Navbar() {
+  const { totalItems } = useCart()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [search, setSearch] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [openMobile, setOpenMobile] = useState(null)
+
+  function isLinkActive(link, pathIsActive) {
+    if (link.categorySlug) {
+      const params = new URLSearchParams(location.search)
+      return location.pathname === '/produits' && params.get('category') === link.categorySlug
+    }
+    return !link.children && pathIsActive
+  }
+
+  function handleSearch(e) {
+    e.preventDefault()
+    const q = search.trim()
+    if (q) {
+      navigate(`/produits?search=${encodeURIComponent(q)}`)
+      setSearch('')
+      setMenuOpen(false)
+    }
+  }
+
+  function toggleMobile(label) {
+    setOpenMobile(prev => (prev === label ? null : label))
+  }
+
+  return (
+    <header className="navbar">
+      <div className="navbar-inner">
+
+        {/* ── Logo ── */}
+        <div className="navbar-logo-col">
+          <Link to="/" className="navbar-logo">
+            <img src="/logo.png" alt="Selective Market" className="navbar-logo-img" height="68" />
+          </Link>
+        </div>
+
+        {/* ── Center: search + nav ── */}
+        <div className="navbar-center">
+
+          <form className="navbar-search-form" onSubmit={handleSearch} role="search">
+            <input
+              type="search"
+              className="navbar-search-input"
+              placeholder="Rechercher un parfum, une marque..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              aria-label="Rechercher"
+            />
+            <button type="submit" className="navbar-search-btn" aria-label="Lancer la recherche">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" strokeLinecap="round" />
+              </svg>
+            </button>
+          </form>
+
+          <nav className="navbar-nav" aria-label="Navigation principale">
+            {NAV_LINKS.map((link) => {
+              const { label, to, end, children, promo, categorySlug } = link
+              return (
+              <div key={label} className={`nav-item${children ? ' nav-item-has-dropdown' : ''}`}>
+                <NavLink
+                  to={to}
+                  end={end}
+                  className={({ isActive }) =>
+                    `navbar-nav-link${isLinkActive(link, isActive) ? ' active' : ''}${promo ? ' navbar-nav-promo' : ''}`
+                  }
+                >
+                  {label}
+                  {children && (
+                    <svg className="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </NavLink>
+
+                {children && (
+                  <div className="nav-dropdown">
+                    {children.map(child => (
+                      <Link key={child.label} to={child.to} className="nav-dropdown-item">
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )})}
+          </nav>
+
+        </div>
+
+        {/* ── Actions ── */}
+        <div className="navbar-actions">
+
+          <a
+            href="https://wa.me/212663432716"
+            className="navbar-action-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Commander sur WhatsApp"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+          </a>
+
+          <button
+            className="navbar-action-btn"
+            onClick={openCart}
+            aria-label="Ouvrir le panier"
+            title="Panier"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+            {totalItems > 0 && <span className="navbar-badge">{totalItems}</span>}
+          </button>
+
+        </div>
+
+        {/* ── Hamburger ── */}
+        <button
+          className={`navbar-hamburger${menuOpen ? ' open' : ''}`}
+          onClick={() => setMenuOpen(v => !v)}
+          aria-label="Menu"
+          aria-expanded={menuOpen}
+        >
+          <span /><span /><span />
+        </button>
+
+      </div>
+
+      {/* ── Mobile menu ── */}
+      {menuOpen && (
+        <nav className="navbar-mobile-menu" aria-label="Menu mobile">
+          <form className="navbar-mobile-search" onSubmit={handleSearch}>
+            <input
+              type="search"
+              placeholder="Rechercher un parfum, une marque..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              aria-label="Rechercher"
+            />
+            <button type="submit" aria-label="Lancer la recherche">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" strokeLinecap="round" />
+              </svg>
+            </button>
+          </form>
+          {NAV_LINKS.map(({ label, to, children, promo }) => (
+            <div key={label}>
+              {children ? (
+                <>
+                  <button
+                    className="navbar-mobile-link navbar-mobile-parent"
+                    onClick={() => toggleMobile(label)}
+                  >
+                    {label}
+                    <svg
+                      className={`nav-chevron${openMobile === label ? ' open' : ''}`}
+                      width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                    >
+                      <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                  {openMobile === label && (
+                    <div className="navbar-mobile-children">
+                      {children.map(child => (
+                        <Link
+                          key={child.label}
+                          to={child.to}
+                          className="navbar-mobile-child"
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    `navbar-mobile-link${isActive ? ' active' : ''}${promo ? ' navbar-mobile-link-promo' : ''}`
+                  }
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </NavLink>
+              )}
+            </div>
+          ))}
+        </nav>
+      )}
+    </header>
+  )
+}

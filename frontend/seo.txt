@@ -1,0 +1,378 @@
+
+Skip to main content
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ecommerce SEO audit
+For ecommerce sites, SEO is often a matter of survival. While other companies may treat SEO as just one of the many touchpoints in a user journey, ecommerce sites may well rely on organic traffic as their only sustainable source of revenue. As such, it’s crucial to make sure your ecommerce site is as optimized for search engines as it can possibly be. Performing a regular ecommerce SEO audit is your best chance to ensure this is the case.
+
+
+What is Ecommerce SEO? 
+Ecommerce SEO is the process of making sure your ecommerce site is visible to search engines and ranks highly enough for its target keywords. In that way, it’s not much different from SEO for other types of sites.
+
+But in the case of ecommerce, SEO can be a lot more involved. Ecommerce sites are often highly complex, with thousands of product pages and dynamic content that is frequently updated and refreshed. At the same time, ecommerce sites – ---especially smaller ones with a limited marketing budget – ---are reliant on SEO to bring in much needed customers.
+
+This is why SEO audits are so critical for ecommerce sites. 
+
+What is an ecommerce SEO audit? 
+An ecommerce SEO audit is about taking stock of your site’s organic visibility and identifying areas that need fixing or improving.
+
+A typical audit will look at the current snapshot of your SEO standing and analyse how well your site performs across a range of ranking factors. The end result is a report that gives you a top-level score and an actionable checklist of prioritised SEO fixes. 
+
+
+
+What is not included in an ecommerce SEO audit
+As involved as an ecommerce SEO audit is, there are some areas it leaves out. For instance, it is typically narrowly focused on your ecommerce website itself. So, things like broader analysis of organic competitors or general keyword research are not part of the SEO audit. Its main goal is to make sure your site does not have any obvious SEO bottlenecks or outright errors.
+
+At the same time, an ecommerce SEO audit doesn’t look at other important on-site issues like digital accessibility and compliance with the Web Content Accessibility Guidelines (WCAG). You should perform separate accessibility audits to get those insights.
+
+Why is it important to regularly audit your ecommerce website 
+Ecommerce websites tend to be ever-evolving. New product pages are added and old ones are removed on a regular basis. Other frequently changing elements can include your product category setup, navigational elements, “Recommended product” widgets and so on. In short, there are many moving parts.
+
+In addition to this, ecommerce sites typically have very complex architecture that relies on URL parameters to manage how and where specific product variants are displayed. If the company operates in multiple markets, its ecommerce site will also need to be carefully configured to properly serve and distinguish between local and global content.
+
+Because of the above, it’s extremely easy to overlook emerging problems on an ecommerce site. Regular SEO audits help you keep track of changes and spot any issues before they can impact your organic traffic and profitability.
+
+How to perform an ecommerce SEO audit - 18 steps checklist
+Due to how critical an SEO audit is for ecommerce sites and the many elements to tackle, it’s easy to get overwhelmed with the task.
+
+The step-by-step checklist below should help you perform this audit effectively by highlighting the areas to focus on. An ecommerce SEO audit can be split into three larger steps:
+
+Technical SEO audit
+Content audit
+Off-page SEO audit
+Step 1: Technical SEO audit
+Technical SEO is a major pillar of SEO success for most sites, but perhaps nowhere is it as vital as for ecommerce companies. Because of their dynamic nature and complex site structure, ecommerce sites face unique challenges in making sure they’re crawlable and indexable.
+
+While performing the technical ecommerce SEO audit, make sure to address the following elements.
+
+1. XML sitemaps
+Your XML sitemap ensures that search engines have a good reference map for your entire site, knowing which of your subdirectories and pages to crawl. So, make sure that your ecommerce site has a valid XML sitemap and that it:
+
+Contains only the main canonical versions of your URLs (see point 4) and that these are “clean” and don’t contain any URL parameters (see point 5).
+Only lists URLs you actually want indexed, making sure that these don’t have “noindex” meta tags and aren’t blocked by robots.txt (point 2)
+Is set to be automatically updated as pages are added or deleted from your site.
+2. Robots.txt file
+The “robots.txt” file tells search engines what parts of your site the search engines are allowed to crawl. Make sure you have one placed under “yoursite.com/robots.txt.”
+
+If you have an active robots.txt file, ensure that it’s not accidentally blocking the crawlers from accessing any parts of your site you actually want indexed. It’s also a good idea to add your sitemap location in the robots.txt file to help crawlers discover it. You can do so by adding the following line at the bottom of the file:
+
+“Sitemap: https://www.yoursite.com/sitemap.xml”
+
+Ecommerce sites tend to have a high volume of pages, subdirectories and subdomains. As such, it becomes important to control your crawl budget, which refers to the amount of pages Google will crawl on your site within a certain time period.
+
+As part of your SEO audit, consult the “Crawl stats” in your Google Search Console. If you see a big discrepancy between the amount of pages discovered and crawled, you may be hitting your crawl budget. Use the robots.txt file to block irrelevant parts of the site and ensure you’re allocating your crawl budget to the important pages.
+
+3. Response codes 
+The next step of the technical ecommerce SEO audit is to take stock of the response codes your pages are returning. Ideally, most of your pages will return a 200 response code, which means they’re present and visible to search engines.
+
+You should address any broken pages with a 4xx response code. If these pages are misspelled while being linked to, you should fix the links to point to the right URLs. If the pages are no longer relevant, you should remove any links pointing to them to avoid generating 4xx errors.
+
+An increase in 5xx response codes usually indicates problems with your server. Make sure you have no lasting server-side issues preventing your site from being accessed.
+
+Finally, 3xx response codes flag temporary and permanent redirects. Make sure your permanent (301) redirects are set up to point to the correct URLs. You also want to avoid any redirection loops (URLs are redirecting crawlers to each other) and long redirect chains (crawlers being sent through multiple pages before reaching the correct URL, instead of being pointed directly to it).
+
+4. Canonicals
+A common feature of ecommerce websites is having the same products existing at multiple URLs due to being listed in different parts of the site, belonging to more than one product category, etc. Ecommerce sites also make use of sorting options that generate multiples of the same URL with different parameters. This can lead to duplicate content and make it difficult for search engines to identify the “master” page.
+
+This is where canonical tags enter the picture. Getting the canonical setup right is critical for ecommerce sites. Look through your product pages and make sure that:
+
+Original versions of a page have a self-referencing canonical tag, which flags them as the URL you want indexed.
+Every alternate version of a page has a canonical tag pointing to the original version of that page.
+Your canonical tags only point to indexable URLs.
+No page has more than one canonical tag, as this prevents Google from knowing which of them is correct.
+5. Parameter handling in Google Search Console
+Ecommerce sites will often make extensive use of URL parameters to control how items are displayed. Parameters are added to the clean version of a URL and can be used to:
+
+Add tracking details for Google Analytics
+Manage product sorting and filtering
+Display minor product variations (e.g. colors) where the rest of the product content is identical between pages
+Google Search Console has a robust URL parameter crawl tool that lets you set up in-depth rules for how to treat these parameters. For instance, you can tell Google to skip indexing all URLs with the “_white” variant of a product if you only want people to find the master product page itself.
+
+During your ecommerce SEO audit, pay careful attention to your use of this parameter crawl tool. A seemingly minor mistake here can result in Google de-indexing entire sections of your site. Go through the parameter rules you’ve set up and check that they’re not blocking any critical pages.
+
+6. Pagination
+For ecommerce sites, pagination plays an important role in splitting long category pages into manageable chunks of e.g. 100 products at a time. You might have a category page like “yoursite/category” displaying the first 100 products, followed by “yoursite/category?page=2” for the next 100 products, and so on.
+
+This actually helps search engine bots discover and crawl the paginated pages from the main category. In your ecommerce SEO audit, keep an eye on any issues with pagination. For instance, you don’t want paginated pages to have “noindex” tags or canonical tags pointing to the main category page. This could lead to search engines ignoring these pages buried deeper in your architecture, which would affect the visibility of large sections of your site.
+
+7. Navigation and crawl depth
+Navigational elements play a key role for ecommerce sites. They help visitors quickly identify and go to the relevant product categories.
+
+When you perform your SEO audit, make sure that your navigation menu contains all the most important pages and categories. It should only include indexable and crawlable pages, so that search engines can actively use your navigation to discover them.
+
+Another consideration is the crawl depth of your key pages. As a rule of thumb, it shouldn’t take more than four clicks for people to reach these from your site’s homepage. If they’re buried deeper than that, look for a way to include them in your navigation or link to them from higher-level category pages.
+
+8. Site search
+Site search is almost universally used on ecommerce sites. It lets site visitors type in their desired keywords to find relevant products. During your audit, check that your internal search engine works as intended and returns the right URLs. This creates a good user experience, which in itself is an indirect SEO signal.
+
+While site search is great from a user experience perspective, it can also negatively affect your SEO if not carefully managed. When users perform a search on your site, they’ll generate unique URLs with the entered search parameters (see point 5). If these URLs are indexable, you’ll eat into your crawl budget by having a high volume of irrelevant pages for search engines to look through.
+
+If your SEO audit flags this as an issue, you can fix it by making search pages non-indexable and blocking them in your robots.txt file.
+
+9. Internationalization
+For ecommerce sites operating in multiple countries or languages, internationalisation is yet another SEO aspect to take into account. Multiple language and regional versions of the same products may exist at different URLs, subdomains or subdirectories.
+
+This complexity is best managed by using the “hreflang” tag. This tag tells Google which local versions of a URL exist for which audiences. In your site audit, pay attention to the following:
+
+Are your hreflang tags pointing to correct URLs?
+Does each page have hreflang tags pointing to all existing local versions of the page?
+Is every URL referenced by hreflang indexable?
+Do your hreflang tags use the right language and region codes?
+Do you include a self-referencing hreflang tag that identifies the page it is on as a specific language version?
+10. Page speed
+Slow loading pages will eventually suffer an organic ranking penalty. In the case of ecommerce sites, they’re also a conversion killer. Therefore, reducing the loading time of your pages is one of your highest priorities.
+
+In your ecommerce SEO audit, you’ll therefore want to check how quickly your pages load. To simplify the process, you can test a few representative URLs for each of the different templates your site uses – homepage, product page, category page and so on.
+
+Because ecommerce sites often serve multiple photos of each product, optimising images will usually be a key element of improving page speed. Consider caching your images and lazy loading them, i.e. only loading them once the user scrolls down to see them.
+
+Step 2: E-commerce content audit 
+Once technical SEO is taken care of, it’s time to review the actual content on your ecommerce site.
+
+
+
+1. Meta titles and meta descriptions
+These will appear in the SERP snippet and are often the first impression a user will have about your site. They should therefore be unique for each product page and entice the user to click through to your site.
+
+During your audit, check that your meta titles and descriptions stay within the character limit to make sure search engines can display them in full. The recommended character limits are:
+
+Meta title: 50-60 characters
+Meta description: 160 characters
+2. Duplicate content
+Ecommerce sites are especially prone to duplicate content issues. Much of it is due to the multiple instances of the same product pages. In addition, retail sites will often reuse the manufacturer’s product descriptions in their listings, leading to further content duplication.
+
+The initial technical SEO audit should take care of many duplicate content issues through the use of canonicals, “noindex” tags, robots.txt rules and so on. But your content itself can further differentiate your canonical pages by including rich, unique elements like FAQ sections, product reviews, shopping guides and so on.
+
+3. Broken links
+Broken links take your visitors to inaccessible pages, which creates a bad user experience and negatively impacts your SEO. During your ecommerce content audit, make sure that both your internal and external links point to pages that actually exist.
+
+4. Content quality and brand compliance
+This step is about making sure your site provides visitors with unique and useful on-page content. Use your audit to flag any “thin” content that doesn’t add any real value, pages with poor readability, or misspelled content that comes off as unprofessional.
+
+At the same time, make sure that your content reflects your brand and uses appropriate terminology and tone of voice. You want visitors to have a consistent brand experience on all pages of your site.
+
+5. Keyword targeting and content cannibalisation 
+Keyword targeting can get tricky on ecommerce sites, since multiple products often belong to the same overall category and rank for similar terms. To the extent possible, try to differentiate your product pages so that they aren’t competing with each other for the same searches. You can often achieve this by using unique, long-tail descriptors for each product page.
+
+6. Structured data
+Using structured data can be extremely valuable for ecommerce sites. It tells crawlers exactly which elements on your page fit a predefined taxonomy. This helps Google and other search engines better understand your on-page content and to generate rich SERP snippets for your products.
+
+Using the schema markup is the best way to achieve this. For ecommerce sites, the most relevant markups are:
+
+Product, which helps to pull relevant details into a rich Google snippet
+Breadcrumb, which helps place individual product pages in the broader context of your site’s hierarchy.
+Step 3: Ecommerce off-page SEO audit
+The final step of the audit goes beyond the site itself and looks at its backlink profile.
+
+1. Backlinks
+Having a high number of trustworthy external domains pointing to your site tends to increase its authority and gives it a ranking boost.
+
+As part of your ecommerce SEO audit, review all your backlinks and the pages they’re pointing to. If they’re linking to an obsolete or broken URL, make sure to add a 301 redirect to an equivalent page on your site that is still relevant.
+
+Finally, you can redistribute some of your backlink power to help the rest of your pages rank better. You do this by adding internal links from pages that have many backlinks to other key pages you’d like to improve.
+
+
+
+2. Negative SEO
+In rare cases, backlinks can backfire. If your site receives a high proportion of so-called “toxic” links from untrustworthy or harmful sites, it can negatively impact your organic ranking.
+
+Should your SEO audit identify such toxic links, you can use the dedicated Disavow tool to proactively tell Google that you don’t want your site to be associated with these external sources.
+
+How Siteimprove can help you with your ecommerce SEO
+As you can see, SEO auditing your ecommerce site involves monitoring a lot of different elements.
+
+Siteimprove SEO can significantly speed up and simplify this process by automating 70+ critical SEO checks. It analyses the following four key areas of your ecommerce site:
+
+Technical SEO
+Content
+User experience
+Mobile friendliness
+The resulting report contains a list of identified SEO issues for each of these areas. These issues are prioritised based on a grading system that detects how critical an issue is and how difficult it is to solve, along with explanations for how to fix it. This provides you with an actionable roadmap for tackling the most urgent SEO problems first.
+
+To speed up fixing SEO blockers, the Siteimprove.ai platform integrates into your existing CMS. This allows you to fix any flagged issues directly within your CMS by simply following Siteimprove’s recommendations.
+
+Handpicked resources for you
+Checker
+
+SEO website checker
+
+Glossary
+
+The ultimate guide to automated SEO reporting
+
+Glossary
+
+How to conduct a complete SEO competitor analysis
+
+Glossary
+
+Voice search SEO: how to optimize for voice search
+
+Ready to welcome all of the world to your website?
+Why Siteimprove
+
+Overview
+Integrations
+Services & Support
+Company
+
+Leadership
+Press
+Contact
+Careers
+
+Life at Siteimprove
+Culture
+Offices
+Open Roles
+Support
+
+Getting started
+Guides & FAQs
+Success Plans
+Developer Center
+System Status
+Platform
+
+Accessibility
+
+Web Accessibility
+Mobile Accessibility
+Analytics
+
+Marketing Analytics
+Paid Search Analytics
+App Analytics
+Search
+
+AEO Visibility
+Technical SEO
+SEO Analytics
+Website Auditing Tools
+Content Strategy
+
+Content Optimization
+Content Strategy
+Content Governance
+Solutions
+
+By Sector
+
+Government
+Higher Education
+Healthcare
+Finance
+Manufacturing
+Retail
+By Role
+
+Accessibility Leaders
+Marketing Leaders
+Content Marketers
+Performance Marketers
+Development & Design
+WebOps
+Partners
+
+Optimizely
+Adobe
+Sitecore
+Customers
+
+Scotiabank
+Northern Arizona Healthcare
+Springfield Clinic
+City & Count of Denver
+University of North Dakota
+Cuisinart
+Akamai Technologies
+Land-o-Lakes
+Vodafone
+BT
+We’re proud to be a Great Place to Work Certified in the USA, April 2026 to April 2027.;
+PrivacyLegalAccessibility Statement
+Siteimprove is a registered trademark of Siteimprove A/S - All rights reserved. 2026
+
+Pillar 1: Technical & Crawlability Audit
+This is the foundation. If Google can't crawl your products efficiently, they won't rank.
+
+Crawl Budget Management: Check your robots.txt file. For e-commerce, you must block non-essential pages like /cart, /checkout, and internal search result pages (?s=) to focus Google's energy on product and category pages.
+
+Canonicalization: E-commerce sites often have the same product in multiple categories. Ensure you have Self-Referencing Canonicals to prevent duplicate content penalties.
+
+Response Codes: Scan for 404 errors (broken products) and 301 redirects. Ensure that out-of-stock or discontinued products are either redirected to the nearest equivalent or return a "410 Gone" status rather than a generic 404.
+
+XML Sitemaps: Verify your sitemap only contains "200 OK" indexable pages and is correctly submitted in Google Search Console.  
+
+Pillar 2: Site Performance & UX (Core Web Vitals)
+Speed is a direct conversion and ranking factor, especially on mobile.
+
+Image Optimization: E-commerce is image-heavy. Check if images are in modern formats like WebP and use Lazy Loading.  
+
+Mobile First: Ensure your navigation, "Add to Cart" buttons, and pop-ups are fully functional and non-intrusive on mobile devices.  
+
+Security: Verify your SSL certificate (HTTPS) is active across the entire site, especially the checkout flow.
+
+Pillar 3: On-Page & Content Strategy
+This is where you optimize for "buying intent" keywords.
+
+Product Page Audit:
+
+Do you have unique product descriptions? (Avoid manufacturer boilerplate).
+
+Are H1 tags clear (e.g., "Product Name - Brand")?
+
+Are Alt texts present on all product images?
+
+Category Page Optimization: Category pages often rank for higher-volume terms than individual products. Ensure they have introductory text and proper internal linking to sub-categories.
+
+Keyword Cannibalization: Check if multiple product pages are competing for the same general keyword. Differentiate them by color, size, or specific features in the Meta Titles.  
+
+Pillar 4: Semantic & Structured Data
+Help search engines understand your "Catalog" through Schema.  
+
+Product Schema: Implement Product and Offer schema. This enables Rich Snippets in search results, showing your Price, Availability, and Star Ratings directly on Google.
+
+Breadcrumb Schema: Vital for e-commerce navigation; it helps Google understand your site hierarchy (e.g., Home > Men > Shoes > Sneakers).  
+
+Review Schema: Crucial for building trust and increasing Click-Through Rate (CTR).  
+
+Pillar 5: Authority & Backlink Profile
+Google needs to know your store is a trusted authority in its niche.
+
+Backlink Health: Use tools like Ahrefs or Semrush to identify toxic links or lost high-quality backlinks.  
+
+Competitor Gap: Identify where your competitors are getting links (blogs, gift guides, directories) that you are missing.
+
+Brand Mentions: Monitor for unlinked brand mentions and reach out to convert them into active links.  
+
+Professional Toolset Recommendation
+To execute this audit properly, you will need:
+
+Screaming Frog: For the technical crawl.
+
+Google Search Console: For indexing and manual action checks.
+
+Ahrefs/Semrush: For keyword and backlink analysis.  
+
+Google PageSpeed Insights: For performance metrics.
+
+"Let's continue optimizing my Google Ads campaigns"
+
+1. CRITICAL — og-default.jpg missing from /public → broken OG image everywhere
+  2. HIGH — Sitemap is static (4 URLs), dynamic backend route exists but _redirects still has a placeholder URL
+  3. HIGH — Product images have no width/height attributes → CLS issue
+  4. MEDIUM — Footer social links are # placeholders
+  5. MEDIUM — BreadcrumbList + breadcrumb nav use MongoDB _id for category instead of slug URL
