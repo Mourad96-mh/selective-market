@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
   concentration: { type: String, default: '' },
   volume: { type: String, default: '' },
   tags: { type: [String], default: [] },
-}, { timestamps: true })
+}, { timestamps: true, suppressReservedKeysWarning: true })
 
 productSchema.index({ name: 'text', tags: 'text' })
 
