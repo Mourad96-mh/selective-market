@@ -1,5 +1,0 @@
-# Proxy sitemap to backend so it's always fresh from MongoDB
-/sitemap.xml  https://selective-market-api.onrender.com/sitemap.xml  200
-
-# SPA fallback
-/*  /index.html  200
