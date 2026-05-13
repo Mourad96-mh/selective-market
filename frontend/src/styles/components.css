@@ -476,7 +476,10 @@
 }
 
 @media (max-width: 640px) {
-  .navbar-inner { padding: var(--space-3) var(--space-4); gap: var(--space-3); }
+  .navbar-inner { padding: var(--space-3) var(--space-4); gap: var(--space-2); }
+  .navbar-logo-col { flex: 1; }
+  .navbar-actions { margin-left: auto; }
+  .navbar-hamburger { margin-left: var(--space-1); }
 }
 
 /* ════════════════════════════════════════════════
