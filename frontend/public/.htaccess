@@ -1,0 +1,16 @@
+# SPA fallback — all routes serve index.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Proxy sitemap to Render backend
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+  # Static files serve normally
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Everything else → SPA
+  RewriteRule . /index.html [L]
+</IfModule>
