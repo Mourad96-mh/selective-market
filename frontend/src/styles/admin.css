@@ -132,6 +132,18 @@
   padding: var(--space-8);
 }
 
+.admin-page-body {
+  padding: var(--space-8);
+}
+
+@media (max-width: 900px) {
+  .admin-page-body { padding: var(--space-5); }
+}
+
+@media (max-width: 640px) {
+  .admin-page-body { padding: var(--space-4); }
+}
+
 /* ════════════════════════════════════════════════
    ADMIN DASHBOARD
    ════════════════════════════════════════════════ */

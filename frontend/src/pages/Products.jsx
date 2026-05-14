@@ -62,8 +62,11 @@ export default function Products() {
   const [brandSearch, setBrandSearch] = useState('')
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
 
-  const [openGroups, setOpenGroups] = useState({
-    concentrations: true, genre: true, categories: true, marques: true, prix: false, selection: false,
+  const [openGroups, setOpenGroups] = useState(() => {
+    const desktop = window.innerWidth >= 768
+    return {
+      concentrations: desktop, genre: desktop, categories: desktop, marques: desktop, prix: false, selection: false,
+    }
   })
 
   const search        = searchParams.get('search')        || ''

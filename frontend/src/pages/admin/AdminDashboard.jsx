@@ -29,7 +29,7 @@ export default function AdminDashboard() {
       <div className="admin-topbar">
         <h1 className="admin-topbar-title">Tableau de bord</h1>
       </div>
-      <div style={{ padding: 'var(--space-8)' }}>
+      <div className="admin-page-body">
         {loading ? (
           <div className="loading-screen"><div className="spinner" /></div>
         ) : (

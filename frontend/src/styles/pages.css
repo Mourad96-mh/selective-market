@@ -868,8 +868,14 @@
 }
 
 .product-gallery {
-  position: sticky;
-  top: calc(var(--navbar-height) + var(--space-4));
+  position: static;
+}
+
+@media (min-width: 769px) {
+  .product-gallery {
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--space-4));
+  }
 }
 
 .product-gallery-main {
@@ -1015,11 +1021,11 @@
 
 .product-cta-row {
   display: flex;
+  flex-direction: column;
   gap: var(--space-3);
-  flex-wrap: wrap;
 }
 
-.product-cta-row .btn { flex: 1; min-width: 140px; }
+.product-cta-row .btn { width: 100%; justify-content: center; }
 
 .product-stock-indicator {
   display: flex;

@@ -89,7 +89,6 @@ export default function Navbar() {
   const location = useLocation()
   const [search, setSearch] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
-  const [openMobile, setOpenMobile] = useState(null)
 
   function isLinkActive(link, pathIsActive) {
     if (link.categorySlug) {
@@ -107,10 +106,6 @@ export default function Navbar() {
       setSearch('')
       setMenuOpen(false)
     }
-  }
-
-  function toggleMobile(label) {
-    setOpenMobile(prev => (prev === label ? null : label))
   }
 
   return (
@@ -231,34 +226,13 @@ export default function Navbar() {
           {NAV_LINKS.map(({ label, to, end, children, promo }) => (
             <div key={label}>
               {children ? (
-                <>
-                  <button
-                    className="navbar-mobile-link navbar-mobile-parent"
-                    onClick={() => toggleMobile(label)}
-                  >
-                    {label}
-                    <svg
-                      className={`nav-chevron${openMobile === label ? ' open' : ''}`}
-                      width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-                    >
-                      <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                  {openMobile === label && (
-                    <div className="navbar-mobile-children">
-                      {children.map(child => (
-                        <Link
-                          key={child.label}
-                          to={child.to}
-                          className="navbar-mobile-child"
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </>
+                <Link
+                  to={to}
+                  className={`navbar-mobile-link${promo ? ' navbar-mobile-link-promo' : ''}`}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </Link>
               ) : (
                 <NavLink
                   to={to}
