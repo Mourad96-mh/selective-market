@@ -35,7 +35,7 @@ export default function About() {
             </div>
             <div style={{ borderRadius: 'var(--radius-xl)', overflow: 'hidden', height: '400px' }}>
               <img
-                src="https://images.unsplash.com/photo-1592945403407-9caf930b7bc2?w=800&h=800&auto=format&fit=crop&q=80"
+                src="https://res.cloudinary.com/ddmfn5mwi/image/upload/v1778963310/parfumerie/uryhscvwhaaluwxiflai.jpg"
                 alt="Parfums de luxe — Selective Market"
                 width={800}
                 height={800}

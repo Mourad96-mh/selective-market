@@ -38,7 +38,7 @@ const CATEGORY_IMGS = [
   'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=500&auto=format&fit=crop&q=80',
   'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&auto=format&fit=crop&q=80',
   'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1592945403407-9caf930b7bc2?w=500&auto=format&fit=crop&q=80',
+  'https://res.cloudinary.com/ddmfn5mwi/image/upload/v1778963310/parfumerie/uryhscvwhaaluwxiflai.jpg',
 ]
 
 const HERO_VISUAL = 'https://res.cloudinary.com/ddmfn5mwi/image/upload/v1778963310/parfumerie/uryhscvwhaaluwxiflai.jpg'
