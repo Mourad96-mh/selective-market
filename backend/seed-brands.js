@@ -7,7 +7,7 @@ const BRANDS = [
   'Babyliss', 'Baldessarini', 'Balmain', 'Bolsius', 'Boucheron', 'Bourjois',
   'Braun', 'Britney Spears', 'Burberry', 'Bvlgari',
   'Cacharel', 'Calvin Klein', 'Carolina Herrera', 'Caron', 'Cartier',
-  'Cerruti', 'Chanel', 'Chloé', 'Chopard', 'Clarins', 'Clinique', 'Coach', 'Cyrus',
+  'Cerruti', 'Scandal', 'Chloé', 'Chopard', 'Clarins', 'Clinique', 'Coach', 'Cyrus',
   'Davidoff', 'Diesel', 'Dior', 'Dolce & Gabbana', 'Dsquared2', 'Dunhill',
   'Elie Saab', 'Elizabeth Arden', 'Escada', 'Estée Lauder',
   'Fendi', 'Francesco Smalto',
