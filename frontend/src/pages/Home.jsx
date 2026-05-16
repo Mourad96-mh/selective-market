@@ -11,7 +11,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Quels sont les délais de livraison au Maroc ?',
-    a: 'Nous livrons partout au Maroc en 24 à 48 heures ouvrables. La livraison est gratuite à partir de 499 MAD. Chaque commande est soigneusement emballée pour garantir la sécurité de vos produits.',
+    a: 'Nous livrons partout au Maroc en 24 à 48 heures ouvrables. La livraison est gratuite à partir de 850 MAD. Chaque commande est soigneusement emballée pour garantir la sécurité de vos produits.',
   },
   {
     q: 'Comment puis-je payer ma commande ?',
@@ -136,7 +136,7 @@ export default function Home() {
                 <div className="hero-float-card-icon">🚚</div>
                 <div>
                   <div className="hero-float-card-label">Livraison gratuite</div>
-                  <div className="hero-float-card-value">Dès 499 MAD</div>
+                  <div className="hero-float-card-value">Dès 850 MAD</div>
                 </div>
               </div>
             </div>
@@ -334,7 +334,7 @@ export default function Home() {
               {
                 icon: '🚚',
                 title: 'Livraison Rapide',
-                desc: 'Livraison en 24–48h partout au Maroc. Gratuite dès 499 MAD. Chaque commande est emballée avec soin.',
+                desc: 'Livraison en 24–48h partout au Maroc. Gratuite dès 850 MAD. Chaque commande est emballée avec soin.',
               },
               {
                 icon: '💬',
