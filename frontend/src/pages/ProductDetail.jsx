@@ -189,32 +189,17 @@ export default function ProductDetail() {
               </div>
 
               {product.variants?.length > 0 && (
-                <div style={{ marginBottom: 'var(--space-4)' }}>
+                <div style={{ marginBottom: 'var(--space-4)', maxWidth: 220 }}>
                   <p style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--color-text-muted)' }}>Contenance</p>
-                  <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
-                    {product.variants.map(v => {
-                      const active = selectedVariant?.volume === v.volume
-                      return (
-                        <button
-                          key={v.volume}
-                          onClick={() => setSelectedVariant(v)}
-                          style={{
-                            padding: '0.4rem 1rem',
-                            border: `2px solid ${active ? 'var(--color-primary)' : 'var(--color-border)'}`,
-                            borderRadius: '9999px',
-                            background: active ? 'var(--color-primary)' : 'transparent',
-                            color: active ? '#fff' : 'var(--color-text)',
-                            cursor: 'pointer',
-                            fontSize: '0.875rem',
-                            fontWeight: 500,
-                            transition: 'all 0.15s ease',
-                          }}
-                        >
-                          {v.volume}
-                        </button>
-                      )
-                    })}
-                  </div>
+                  <select
+                    className="form-control"
+                    value={selectedVariant?.volume || ''}
+                    onChange={e => setSelectedVariant(product.variants.find(v => v.volume === e.target.value))}
+                  >
+                    {product.variants.map(v => (
+                      <option key={v.volume} value={v.volume}>{v.volume}</option>
+                    ))}
+                  </select>
                 </div>
               )}
 

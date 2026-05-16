@@ -175,9 +175,14 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginBottom: 'var(--space-2)' }}>
                   {form.variants.map((v, idx) => (
                     <div key={idx} style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
-                      <select className="form-control" style={{ flex: '0 0 160px' }} value={v.volume} onChange={e => updateVariant(idx, 'volume', e.target.value)}>
-                        {VOLUME_OPTIONS.map(opt => <option key={opt} value={opt}>{opt || '-- Choisir --'}</option>)}
-                      </select>
+                      <input
+                        className="form-control"
+                        style={{ flex: '0 0 160px' }}
+                        list="volume-options"
+                        placeholder="Ex: 100 ml"
+                        value={v.volume}
+                        onChange={e => updateVariant(idx, 'volume', e.target.value)}
+                      />
                       <input className="form-control" type="number" min="0" placeholder="Prix (MAD)" value={v.price} onChange={e => updateVariant(idx, 'price', e.target.value)} />
                       <input className="form-control" type="number" min="0" placeholder="Promo (MAD)" value={v.discountPrice} onChange={e => updateVariant(idx, 'discountPrice', e.target.value)} />
                       <button type="button" onClick={() => removeVariant(idx)} style={{ flexShrink: 0, background: 'none', border: 'none', color: 'var(--color-danger)', cursor: 'pointer', fontSize: '1.2rem' }}>✕</button>
@@ -186,6 +191,9 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
                 </div>
               )}
               <button type="button" className="btn btn-ghost btn-sm" onClick={addVariantRow}>+ Ajouter une contenance</button>
+              <datalist id="volume-options">
+                {VOLUME_OPTIONS.filter(Boolean).map(opt => <option key={opt} value={opt} />)}
+              </datalist>
             </div>
             <div className="form-group">
               <label className="form-label">Stock</label>
