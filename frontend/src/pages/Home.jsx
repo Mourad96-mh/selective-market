@@ -41,7 +41,7 @@ const CATEGORY_IMGS = [
   'https://images.unsplash.com/photo-1592945403407-9caf930b7bc2?w=500&auto=format&fit=crop&q=80',
 ]
 
-const HERO_VISUAL = 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=700&auto=format&fit=crop&q=80'
+const HERO_VISUAL = 'https://res.cloudinary.com/ddmfn5mwi/image/upload/v1778963310/parfumerie/uryhscvwhaaluwxiflai.jpg'
 
 const STATS = [
   { value: '+5 000', label: 'Produits' },
