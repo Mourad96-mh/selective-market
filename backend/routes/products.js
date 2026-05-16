@@ -5,7 +5,7 @@ const auth = require('../middleware/auth')
 
 router.get('/', async (req, res) => {
   try {
-    const { search, category, brand, gender, concentration, featured, isNew, inStock, minPrice, maxPrice, sort, page = 1, limit = 12 } = req.query
+    const { search, category, brand, gender, concentration, featured, isNew, inStock, onPromo, minPrice, maxPrice, sort, page = 1, limit = 12 } = req.query
     const filter = {}
 
     if (search) filter.$text = { $search: search }
@@ -23,6 +23,10 @@ router.get('/', async (req, res) => {
     if (featured === 'true') filter.featured = true
     if (isNew === 'true') filter.isNew = true
     if (inStock === 'true') filter.stock = { $gt: 0 }
+    if (onPromo === 'true') filter.$or = [
+      { discountPrice: { $ne: null, $gt: 0 } },
+      { 'variants.discountPrice': { $ne: null, $gt: 0 } },
+    ]
     if (minPrice || maxPrice) {
       filter.price = {}
       if (minPrice) filter.price.$gte = Number(minPrice)

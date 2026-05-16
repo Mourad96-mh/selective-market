@@ -77,6 +77,7 @@ export default function Products() {
   const featured      = searchParams.get('featured')      || ''
   const isNew         = searchParams.get('isNew')         || ''
   const inStock       = searchParams.get('inStock')       || ''
+  const onPromo       = searchParams.get('onPromo')       || ''
   const minPrice      = searchParams.get('minPrice')      || ''
   const maxPrice      = searchParams.get('maxPrice')      || ''
   const sort          = searchParams.get('sort')          || 'newest'
@@ -104,6 +105,7 @@ export default function Products() {
       if (featured)      params.set('featured', 'true')
       if (isNew)    params.set('isNew', 'true')
       if (inStock)  params.set('inStock', 'true')
+      if (onPromo)  params.set('onPromo', 'true')
       if (minPrice) params.set('minPrice', minPrice)
       if (maxPrice) params.set('maxPrice', maxPrice)
 
@@ -117,7 +119,7 @@ export default function Products() {
     } finally {
       setLoading(false)
     }
-  }, [search, category, brand, gender, concentration, featured, isNew, inStock, minPrice, maxPrice, sort, page])
+  }, [search, category, brand, gender, concentration, featured, isNew, inStock, onPromo, minPrice, maxPrice, sort, page])
 
   useEffect(() => { loadProducts() }, [loadProducts])
 
@@ -137,7 +139,7 @@ export default function Products() {
     setOpenGroups(prev => ({ ...prev, [key]: !prev[key] }))
   }
 
-  const hasFilters = search || category || brand || gender || concentration || featured || isNew || inStock || minPrice || maxPrice
+  const hasFilters = search || category || brand || gender || concentration || featured || isNew || inStock || onPromo || minPrice || maxPrice
 
   const filteredBrands = brandSearch
     ? brands.filter(b => b.name.toLowerCase().includes(brandSearch.toLowerCase()))
@@ -152,6 +154,7 @@ export default function Products() {
     gender === 'unisexe'  ? 'Parfums Mixte' :
     featured              ? 'Produits En Vedette' :
     isNew                 ? 'Nouveautés' :
+    onPromo               ? 'Promotions' :
     'Tous les Produits'
 
   const sidebar = (

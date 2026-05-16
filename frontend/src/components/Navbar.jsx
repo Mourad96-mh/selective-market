@@ -80,7 +80,7 @@ const NAV_LINKS = [
       { label: 'Accessoires cheveux', to: '/produits?category=cheveux' },
     ],
   },
-  { label: 'Promotions',  to: '/produits?featured=true', promo: true },
+  { label: 'Promotions',  to: '/produits?onPromo=true', promo: true },
 ]
 
 export default function Navbar() {
