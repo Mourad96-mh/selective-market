@@ -25,7 +25,7 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
   const [form, setForm] = useState({
     name: '', description: '', stock: 0,
     gender: 'unisexe', concentration: '', volume: '', featured: false, isNew: false,
-    images: [], imagePublicIds: [], variants: [],
+    images: [], imagePublicIds: [],
     ...product,
     price: product?.price ?? '',
     discountPrice: product?.discountPrice ?? '',
