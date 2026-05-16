@@ -5,20 +5,24 @@ import { formatPrice, discountPercent, cloudinaryAuto } from '../config'
 
 export default function ProductCard({ product }) {
   const { addItem } = useCart()
-  const pct       = discountPercent(product.price, product.discountPrice)
-  const mainImage = cloudinaryAuto(product.images?.[0])
+  const mainImage   = cloudinaryAuto(product.images?.[0])
+  const hasVariants = product.variants?.length > 0
+  const firstVariant = hasVariants ? product.variants[0] : null
+  const displayPrice = hasVariants
+    ? Math.min(...product.variants.map(v => v.discountPrice || v.price))
+    : (product.discountPrice || product.price)
+  const basePrice = hasVariants
+    ? Math.min(...product.variants.map(v => v.price))
+    : product.price
+  const pct = discountPercent(basePrice, hasVariants ? null : product.discountPrice)
 
   function handleAddToCart(e) {
     e.preventDefault()
-    addItem({
-      _id:          product._id,
-      name:         product.name,
-      price:        product.price,
-      discountPrice: product.discountPrice,
-      image:        mainImage,
-      volume:       product.volume,
-      brand:        product.brand?.name,
-    })
+    const price = firstVariant ? firstVariant.price : product.price
+    const discountPrice = firstVariant ? firstVariant.discountPrice : product.discountPrice
+    const volume = firstVariant ? firstVariant.volume : product.volume
+    const cartKey = firstVariant ? `${product._id}:${firstVariant.volume}` : product._id
+    addItem({ _id: product._id, cartKey, name: product.name, price, discountPrice, image: mainImage, volume, brand: product.brand?.name })
   }
 
   return (
@@ -60,9 +64,10 @@ export default function ProductCard({ product }) {
 
         <div className="product-card-price">
           <span className="product-price-current">
-            {formatPrice(product.discountPrice || product.price)}
+            {hasVariants && <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>À partir de </span>}
+            {formatPrice(displayPrice)}
           </span>
-          {pct > 0 && (
+          {pct > 0 && !hasVariants && (
             <span className="product-price-original">{formatPrice(product.price)}</span>
           )}
         </div>

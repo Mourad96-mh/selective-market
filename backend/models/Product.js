@@ -26,6 +26,14 @@ const productSchema = new mongoose.Schema({
   concentration: { type: String, default: '' },
   volume: { type: String, default: '' },
   tags: { type: [String], default: [] },
+  variants: {
+    type: [{
+      volume: { type: String, required: true },
+      price: { type: Number, required: true, min: 0 },
+      discountPrice: { type: Number, default: null },
+    }],
+    default: [],
+  },
 }, { timestamps: true, suppressReservedKeysWarning: true })
 
 productSchema.index({ name: 'text', tags: 'text' })

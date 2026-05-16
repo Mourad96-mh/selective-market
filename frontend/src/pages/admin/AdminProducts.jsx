@@ -9,6 +9,10 @@ const GENDER_OPTIONS = [
   { value: 'homme', label: 'Homme' },
 ]
 
+const VOLUME_OPTIONS = [
+  '', '30 ml', '50 ml', '90 ml', 'Échantillon 1-2 ml',
+]
+
 const CONCENTRATION_OPTIONS = [
   '', 'Eau de Cologne', 'Eau de Toilette', 'Eau de Parfum',
   'Eau de Parfum Intense', 'Eau de Parfum Absolute', 'Eau de Parfum Fruitée',
@@ -21,13 +25,14 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
   const [form, setForm] = useState({
     name: '', description: '', stock: 0,
     gender: 'unisexe', concentration: '', volume: '', featured: false, isNew: false,
-    images: [], imagePublicIds: [],
+    images: [], imagePublicIds: [], variants: [],
     ...product,
     price: product?.price ?? '',
     discountPrice: product?.discountPrice ?? '',
     category: product?.category?._id || product?.category || '',
     brand: product?.brand?._id || product?.brand || '',
     tags: product?.tags?.join(', ') || '',
+    variants: product?.variants || [],
   })
   const [uploading, setUploading] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -62,19 +67,40 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
     }))
   }
 
+  function addVariantRow() {
+    setForm(f => ({ ...f, variants: [...f.variants, { volume: '', price: '', discountPrice: '' }] }))
+  }
+
+  function updateVariant(idx, field, val) {
+    setForm(f => ({ ...f, variants: f.variants.map((v, i) => i === idx ? { ...v, [field]: val } : v) }))
+  }
+
+  function removeVariant(idx) {
+    setForm(f => ({ ...f, variants: f.variants.filter((_, i) => i !== idx) }))
+  }
+
   async function handleSave() {
-    if (!form.name.trim() || !form.price || !form.category || !form.brand || !form.description.trim()) {
-      return setError('Nom, description, prix, catégorie et marque sont requis')
+    const cleanVariants = form.variants
+      .filter(v => v.volume && v.price)
+      .map(v => ({ volume: v.volume, price: Number(v.price), discountPrice: v.discountPrice ? Number(v.discountPrice) : null }))
+    const hasVariants = cleanVariants.length > 0
+    if (!form.name.trim() || !form.category || !form.brand || !form.description.trim()) {
+      return setError('Nom, description, catégorie et marque sont requis')
+    }
+    if (!hasVariants && !form.price) {
+      return setError('Ajoutez un prix ou au moins une contenance avec son prix')
     }
     setSaving(true)
     setError('')
     try {
+      const basePrice = hasVariants ? Math.min(...cleanVariants.map(v => v.price)) : Number(form.price)
       const payload = {
         ...form,
-        price: Number(form.price),
-        discountPrice: form.discountPrice ? Number(form.discountPrice) : null,
+        price: basePrice,
+        discountPrice: hasVariants ? null : (form.discountPrice ? Number(form.discountPrice) : null),
         stock: Number(form.stock),
         tags: form.tags ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
+        variants: cleanVariants,
       }
       const url = isEdit ? `/products/${product._id}` : '/products'
       const method = isEdit ? 'PUT' : 'POST'
@@ -107,6 +133,7 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
               <label className="form-label">Description <span className="form-required">*</span></label>
               <textarea className="form-control" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={4} placeholder="Description détaillée du produit..." />
             </div>
+            {form.variants.filter(v => v.volume && v.price).length === 0 && (<>
             <div className="form-group">
               <label className="form-label">Prix (MAD) <span className="form-required">*</span></label>
               <input className="form-control" type="number" min="0" step="0.01" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} placeholder="0.00" />
@@ -115,6 +142,7 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
               <label className="form-label">Prix promo (MAD)</label>
               <input className="form-control" type="number" min="0" step="0.01" value={form.discountPrice} onChange={e => setForm(f => ({ ...f, discountPrice: e.target.value }))} placeholder="Laisser vide si pas de promo" />
             </div>
+            </>)}
             <div className="form-group">
               <label className="form-label">Catégorie <span className="form-required">*</span></label>
               <select className="form-control" value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}>
@@ -141,9 +169,23 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
                 {CONCENTRATION_OPTIONS.map(c => <option key={c} value={c}>{c || '-- Aucune --'}</option>)}
               </select>
             </div>
-            <div className="form-group">
-              <label className="form-label">Volume / Contenance</label>
-              <input className="form-control" value={form.volume} onChange={e => setForm(f => ({ ...f, volume: e.target.value }))} placeholder="Ex: 100ml, 50ml, 200ml" />
+            <div className="form-group full" style={{ gridColumn: '1 / -1' }}>
+              <label className="form-label">Contenances & Prix</label>
+              {form.variants.length > 0 && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginBottom: 'var(--space-2)' }}>
+                  {form.variants.map((v, idx) => (
+                    <div key={idx} style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+                      <select className="form-control" style={{ flex: '0 0 160px' }} value={v.volume} onChange={e => updateVariant(idx, 'volume', e.target.value)}>
+                        {VOLUME_OPTIONS.map(opt => <option key={opt} value={opt}>{opt || '-- Choisir --'}</option>)}
+                      </select>
+                      <input className="form-control" type="number" min="0" placeholder="Prix (MAD)" value={v.price} onChange={e => updateVariant(idx, 'price', e.target.value)} />
+                      <input className="form-control" type="number" min="0" placeholder="Promo (MAD)" value={v.discountPrice} onChange={e => updateVariant(idx, 'discountPrice', e.target.value)} />
+                      <button type="button" onClick={() => removeVariant(idx)} style={{ flexShrink: 0, background: 'none', border: 'none', color: 'var(--color-danger)', cursor: 'pointer', fontSize: '1.2rem' }}>✕</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <button type="button" className="btn btn-ghost btn-sm" onClick={addVariantRow}>+ Ajouter une contenance</button>
             </div>
             <div className="form-group">
               <label className="form-label">Stock</label>

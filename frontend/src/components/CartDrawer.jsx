@@ -49,7 +49,7 @@ export default function CartDrawer() {
             </div>
           ) : (
             items.map(item => (
-              <div key={item._id} className="cart-item">
+              <div key={item.cartKey || item._id} className="cart-item">
                 {item.image ? (
                   <img src={item.image} alt={item.name} className="cart-item-img" />
                 ) : (
@@ -63,11 +63,11 @@ export default function CartDrawer() {
                   {item.volume && <div className="cart-item-volume">{item.volume}</div>}
                   <div className="cart-item-controls">
                     <div className="qty-control">
-                      <button className="qty-btn" onClick={() => updateQty(item._id, item.qty - 1)}>
+                      <button className="qty-btn" onClick={() => updateQty(item.cartKey || item._id, item.qty - 1)}>
                         <MdRemove size={14} />
                       </button>
                       <span className="qty-value">{item.qty}</span>
-                      <button className="qty-btn" onClick={() => updateQty(item._id, item.qty + 1)}>
+                      <button className="qty-btn" onClick={() => updateQty(item.cartKey || item._id, item.qty + 1)}>
                         <MdAdd size={14} />
                       </button>
                     </div>
@@ -75,7 +75,7 @@ export default function CartDrawer() {
                       {formatPrice((item.discountPrice || item.price) * item.qty)}
                     </span>
                   </div>
-                  <button className="cart-item-remove" onClick={() => removeItem(item._id)}>
+                  <button className="cart-item-remove" onClick={() => removeItem(item.cartKey || item._id)}>
                     Supprimer
                   </button>
                 </div>

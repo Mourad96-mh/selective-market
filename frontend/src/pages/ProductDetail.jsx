@@ -17,6 +17,7 @@ export default function ProductDetail() {
   const [activeImg, setActiveImg] = useState(0)
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
+  const [selectedVariant, setSelectedVariant] = useState(null)
   const { addItem } = useCart()
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function ProductDetail() {
       .then(r => r.json())
       .then(data => {
         setProduct(data)
+        setSelectedVariant(data.variants?.length ? data.variants[0] : null)
         if (data.category?._id) {
           fetch(`${API_URL}/products?category=${data.category._id}&limit=4`)
             .then(r => r.json())
@@ -39,24 +41,22 @@ export default function ProductDetail() {
 
   function handleAddToCart() {
     if (!product) return
-    addItem({
-      _id: product._id,
-      name: product.name,
-      price: product.price,
-      discountPrice: product.discountPrice,
-      image: product.images?.[0],
-      volume: product.volume,
-      brand: product.brand?.name,
-      qty,
-    })
+    const price = selectedVariant ? selectedVariant.price : product.price
+    const discountPrice = selectedVariant ? selectedVariant.discountPrice : product.discountPrice
+    const volume = selectedVariant ? selectedVariant.volume : product.volume
+    const cartKey = selectedVariant ? `${product._id}:${selectedVariant.volume}` : product._id
+    addItem({ _id: product._id, cartKey, name: product.name, price, discountPrice, image: product.images?.[0], volume, brand: product.brand?.name, qty })
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
   }
 
   function handleWhatsApp() {
-    const price = formatPrice(product.discountPrice || product.price)
+    const price = selectedVariant
+      ? formatPrice(selectedVariant.discountPrice || selectedVariant.price)
+      : formatPrice(product.discountPrice || product.price)
+    const volume = selectedVariant ? selectedVariant.volume : product.volume
     const msg = encodeURIComponent(
-      `Bonjour, je souhaite commander:\n\n*${product.name}*${product.volume ? ` (${product.volume})` : ''}\nQuantité: ${qty}\nPrix: ${price}\n\nMerci`
+      `Bonjour, je souhaite commander:\n\n*${product.name}*${volume ? ` (${volume})` : ''}\nQuantité: ${qty}\nPrix: ${price}\n\nMerci`
     )
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
   }
@@ -73,7 +73,9 @@ export default function ProductDetail() {
     </div>
   )
 
-  const pct = discountPercent(product.price, product.discountPrice)
+  const activePrice = selectedVariant ? selectedVariant.price : product.price
+  const activeDiscount = selectedVariant ? selectedVariant.discountPrice : product.discountPrice
+  const pct = discountPercent(activePrice, activeDiscount)
   const images = (product.images?.length ? product.images : []).map(cloudinaryAuto)
 
   return (
@@ -176,15 +178,45 @@ export default function ProductDetail() {
 
               <div className="product-info-price">
                 <span className="product-info-price-current">
-                  {formatPrice(product.discountPrice || product.price)}
+                  {formatPrice(activeDiscount || activePrice)}
                 </span>
                 {pct > 0 && (
                   <>
-                    <span className="product-info-price-original">{formatPrice(product.price)}</span>
+                    <span className="product-info-price-original">{formatPrice(activePrice)}</span>
                     <span className="product-info-price-save">-{pct}%</span>
                   </>
                 )}
               </div>
+
+              {product.variants?.length > 0 && (
+                <div style={{ marginBottom: 'var(--space-4)' }}>
+                  <p style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--color-text-muted)' }}>Contenance</p>
+                  <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+                    {product.variants.map(v => {
+                      const active = selectedVariant?.volume === v.volume
+                      return (
+                        <button
+                          key={v.volume}
+                          onClick={() => setSelectedVariant(v)}
+                          style={{
+                            padding: '0.4rem 1rem',
+                            border: `2px solid ${active ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                            borderRadius: '9999px',
+                            background: active ? 'var(--color-primary)' : 'transparent',
+                            color: active ? '#fff' : 'var(--color-text)',
+                            cursor: 'pointer',
+                            fontSize: '0.875rem',
+                            fontWeight: 500,
+                            transition: 'all 0.15s ease',
+                          }}
+                        >
+                          {v.volume}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
 
               <p className="product-info-description">{product.description}</p>
 

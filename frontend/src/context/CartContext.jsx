@@ -2,23 +2,22 @@ import { createContext, useContext, useReducer, useEffect } from 'react'
 
 const CartContext = createContext(null)
 
+const getKey = i => i.cartKey || i._id
+
 function cartReducer(state, action) {
   switch (action.type) {
     case 'ADD': {
-      const existing = state.find(i => i._id === action.item._id)
+      const key = getKey(action.item)
+      const existing = state.find(i => getKey(i) === key)
       if (existing) {
-        return state.map(i =>
-          i._id === action.item._id ? { ...i, qty: i.qty + (action.item.qty || 1) } : i
-        )
+        return state.map(i => getKey(i) === key ? { ...i, qty: i.qty + (action.item.qty || 1) } : i)
       }
       return [...state, { ...action.item, qty: action.item.qty || 1 }]
     }
     case 'REMOVE':
-      return state.filter(i => i._id !== action.id)
+      return state.filter(i => getKey(i) !== action.id)
     case 'UPDATE_QTY':
-      return state.map(i =>
-        i._id === action.id ? { ...i, qty: Math.max(1, action.qty) } : i
-      )
+      return state.map(i => getKey(i) === action.id ? { ...i, qty: Math.max(1, action.qty) } : i)
     case 'CLEAR':
       return []
     default:
