@@ -61,7 +61,7 @@ export default function Home() {
       try {
         const [fp, np, cp, bp] = await Promise.all([
           fetch(`${API_URL}/products?featured=true&limit=8`).then(r => r.json()),
-          fetch(`${API_URL}/products?isNew=true&limit=8`).then(r => r.json()),
+          fetch(`${API_URL}/products?isNew=true&limit=20`).then(r => r.json()),
           fetch(`${API_URL}/categories`).then(r => r.json()),
           fetch(`${API_URL}/brands`).then(r => r.json()),
         ])
@@ -262,7 +262,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════ NEW ARRIVALS ════ */}
+      {/* ════ NEW ARRIVALS — carousel ════ */}
       {newArrivals.length > 0 && (
         <section className="section">
           <div className="container">
@@ -271,14 +271,20 @@ export default function Home() {
               <h2 className="section-title">Nouveautés</h2>
               <div className="divider-gold" />
             </div>
-            <div className="grid-4">
-              {newArrivals.map(p => <ProductCard key={p._id} product={p} />)}
+          </div>
+          <div className="arrivals-carousel">
+            <div className="arrivals-track">
+              {[...newArrivals, ...newArrivals].map((p, i) => (
+                <div key={`${p._id}-${i}`} className="arrivals-slide">
+                  <ProductCard product={p} />
+                </div>
+              ))}
             </div>
-            <div style={{ textAlign: 'center', marginTop: 'var(--space-10)' }}>
-              <Link to="/produits?isNew=true" className="btn btn-outline">
-                Voir toutes les nouveautés
-              </Link>
-            </div>
+          </div>
+          <div style={{ textAlign: 'center', marginTop: 'var(--space-8)' }}>
+            <Link to="/produits?isNew=true" className="btn btn-outline">
+              Voir toutes les nouveautés
+            </Link>
           </div>
         </section>
       )}

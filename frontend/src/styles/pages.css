@@ -514,6 +514,29 @@
   to   { transform: translateX(-50%); }
 }
 
+/* ── New arrivals carousel ── */
+.arrivals-carousel {
+  overflow: hidden;
+  width: 100%;
+  padding: var(--space-4) 0;
+}
+
+.arrivals-track {
+  display: flex;
+  gap: var(--space-5);
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+
+.arrivals-track:hover {
+  animation-play-state: paused;
+}
+
+.arrivals-slide {
+  flex: 0 0 240px;
+  width: 240px;
+}
+
 .brand-logo-item {
   display: flex;
   align-items: center;
