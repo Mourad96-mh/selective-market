@@ -21,6 +21,11 @@ function stripHtml(str = '') {
   return str.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
+/* Replace the source competitor's name with our store name. */
+function rebrand(str = '') {
+  return str.replace(/kosmenia/gi, 'Selective Market')
+}
+
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
     const opts = { headers: { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' } }
@@ -103,7 +108,7 @@ async function seed() {
       if (products.length === 0) break
 
       for (const p of products) {
-        const name = stripHtml(p.title)
+        const name = rebrand(stripHtml(p.title))
         if (!name) { collectionSkipped++; continue }
 
         /* Skip if already in DB */
@@ -130,7 +135,7 @@ async function seed() {
         const stock         = variant.available ? 10 : 0
 
         /* Description */
-        const description = stripHtml(p.body_html) || `${name} — ${brandName || categoryName}`
+        const description = rebrand(stripHtml(p.body_html)) || `${name} — ${brandName || categoryName}`
 
         /* Images */
         const images = (p.images || []).map(i => i.src).slice(0, 4)
@@ -151,7 +156,7 @@ async function seed() {
             images,
             featured: false,
             isNew: false,
-            tags: p.tags || [],
+            tags: (p.tags || []).map(rebrand),
           })
           process.stdout.write('.')
           collectionAdded++

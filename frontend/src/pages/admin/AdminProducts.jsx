@@ -246,6 +246,19 @@ function ProductModal({ product, categories, brands, onClose, onSaved, authFetch
   )
 }
 
+/* Build a compact list of page numbers: 1 … (cur-1) cur (cur+1) … last */
+function getPageItems(current, total) {
+  const items = []
+  for (let n = 1; n <= total; n++) {
+    if (n === 1 || n === total || (n >= current - 1 && n <= current + 1)) {
+      items.push(n)
+    } else if (items[items.length - 1] !== '…') {
+      items.push('…')
+    }
+  }
+  return items
+}
+
 export default function AdminProducts() {
   const { authFetch } = useAuth()
   const [products, setProducts] = useState([])
@@ -368,9 +381,13 @@ export default function AdminProducts() {
 
           {pages > 1 && (
             <div className="pagination" style={{ padding: 'var(--space-5)' }}>
-              {Array.from({ length: pages }, (_, i) => i + 1).map(n => (
-                <button key={n} className={`pagination-btn${n === page ? ' active' : ''}`} onClick={() => setPage(n)}>{n}</button>
-              ))}
+              <button className="pagination-btn" disabled={page === 1} onClick={() => setPage(page - 1)}>‹</button>
+              {getPageItems(page, pages).map((n, i) =>
+                n === '…'
+                  ? <span key={`e${i}`} className="pagination-ellipsis">…</span>
+                  : <button key={n} className={`pagination-btn${n === page ? ' active' : ''}`} onClick={() => setPage(n)}>{n}</button>
+              )}
+              <button className="pagination-btn" disabled={page === pages} onClick={() => setPage(page + 1)}>›</button>
             </div>
           )}
         </div>
